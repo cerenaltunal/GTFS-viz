@@ -16,6 +16,7 @@ Feel free to build something out of the GTFS dataset that you think would help a
 ### General instructions
 * Please pick one of the three options.
 * You can convert the GTFS data in a way convient to you. There is no predefined way. 
+* The examples should just serve as inspiration. Your solution does not need to be this advanced.
 * The solution should work independently of the given GTFS dataset.
 * Use this repository to build your solution.
 * Don't forget the instructions for testing and running the code.
