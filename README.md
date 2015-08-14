@@ -1,5 +1,5 @@
 # GTFS-viz
-We like to help cities understand their publict transportation system. For this we take the GTFS dataset of Mexico City and build software around the data to make it more accesiable. 
+We like to help cities understand their publict transportation system. For this we take the [GTFS dataset](https://github.com/allyapp/GTFS-viz/tree/master/data) of Mexico City and build software around the data to make it more accesiable. 
 
 There are two options to make the data more accesible and give a city insights in it's system:
 
