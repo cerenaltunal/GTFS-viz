@@ -11,6 +11,7 @@ Give the city the option to query specific parts of their system (e.g. Bus 210) 
 Visualizing the resutls of the query is not necessary required. An API endpoint could be enough.
 
 ### General instructions
+* Pick one of the two options.
 * The solution should work independently of the given GTFS dataset.
 * Use this repository to build your solution.
 * Don't forget the instructions for testing and running the code.
