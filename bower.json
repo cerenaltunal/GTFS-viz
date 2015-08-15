@@ -1,0 +1,29 @@
+{
+  "name": "GTFS-viz",
+  "version": "0.0.0",
+  "homepage": "https://github.com/allyapp/GTFS-viz",
+  "authors": [
+    "Ceren Altunal Podlech ceren-altunal@hotmail.com"
+  ],
+  "description": "Mexico City public transportation",
+  "main": "src/public/index.html",
+  "keywords": [
+    "GIS",
+    "Public",
+    "transportation",
+    "Mexico"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.4",
+    "angular-leaflet-directive": "~0.8.6",
+    "leaflet.markercluster": "~0.4.0"
+  }
+}

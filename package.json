@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/allyapp/GTFS-viz",
   "dependencies": {
+    "csv-load-sync": "git+https://github.com/cerenaltunal/csv-load-sync.git#master",
     "express": "^4.13.3",
     "express-ws": "^0.2.6"
   },
@@ -35,17 +36,3 @@
     "karma-jasmine": "^0.3.6"
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
