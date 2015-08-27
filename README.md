@@ -1,3 +1,5 @@
+This is my fork of the [GTFS-viz](https://github.com/allyapp/GTFS-viz) repository. See instructions [here](https://github.com/cerenaltunal/GTFS-viz/blob/master/instructions.md).
+
 # GTFS-viz
 We like to help cities understand their public transportation system. For this we take the [GTFS dataset](https://github.com/allyapp/GTFS-viz/tree/master/data) of Mexico City and build software around the data to make it more accessible. 
 
