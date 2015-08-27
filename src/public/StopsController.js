@@ -23,7 +23,7 @@ app.controller("StopsController", [ '$scope', '$http', '$rootScope', function($s
                 markers: {
                     name: "stops",
                     type: "markercluster",
-                    visible: false
+                    visible: true
                 }
             }
         }
