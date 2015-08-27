@@ -2,7 +2,9 @@
 Read here how to install and run the example app.
 
 ### Requirements
-You need to have [Node.js](https://nodejs.org/) and npm (which is bundled with node) in current versions installed. The app is implemented for googles chrome browser, but should also run in any other modern browser.
+You need to have [Node.js](https://nodejs.org/) and npm (which is bundled with node) in current versions installed.
+Bower is also needed. Bower can be installed via npm with `npm install -g bower`.
+The app is implemented for googles chrome browser, but should also run in any other modern browser.
 
 ### Installation
 * clone the repository
@@ -11,6 +13,7 @@ You need to have [Node.js](https://nodejs.org/) and npm (which is bundled with n
 * run `bower install`
 * if you want, run the tests with `npm run test`, but they are not testing much, they are meant as a proof of concept for the testing environment
 * run the web server with `node app.js`
+* visit [http://localhost:3000/#/] with your browser
 
 ### Use of web app
 There are 3 views.
