@@ -1,5 +1,11 @@
+/*
+ * This package reads data from file and creates and JSON object for visualizing data in leaflet.js
+ */
 var loader = require('csv-load-sync');
 
+/*
+ * Files to read
+ */
 var files = [
     "agency.txt",
     "calendar.txt",
@@ -14,7 +20,9 @@ var files = [
     "trips.txt"
 ];
 
-
+/*
+ * Helper function to create HashMaps listing elements by an id.
+ */
 function createById(list, idName){
     var itemById = {};
     list.forEach(function(item){
@@ -30,14 +38,19 @@ function createById(list, idName){
 module.exports = function(folder){
     var data = {};
 
+
     files.forEach(function(file){
         data[file] = loader(folder + '/' + file);
     });
 
+    /*
+    * Creating geoJSON for stops
+    */
+
     var stops = {};
+
     stops['type'] = 'FeatureCollection';
     stops['features'] = [];
-    //Create geoJSON for stops
     data['stops.txt'].forEach(function(stop){
         var newFeature = {
             "type": "Feature",
@@ -47,27 +60,20 @@ module.exports = function(folder){
             },
             "properties": stop
         }
-        delete newFeature.properties.stop_lon;
-        delete newFeature.properties.stop_lat;
-//        newFeature.properties["marker-size"]="large";
-//        newFeature.properties["marker-color"]="#4682b4";
-//        newFeature.properties["marker-symbol"]="";
         stops['features'].push(newFeature);
     });
 
-    var routesById = createById(data["routes.txt"], 'route_id');
+    /*
+    * Create geoJson for shapes
+    */
+    var shapesById = createById(data["shapes.txt"], 'shape_id');
 
-    var tripsById = createById(data["trips.txt"], 'trip_id');
-
-
-    //Create geoJson fro shapes.txt
     var shapes = {}
     shapes['type'] = 'FeatureCollection';
     shapes['features'] = [];
 
-    var shapesById = createById(data["shapes.txt"], 'shape_id');
 
-    for(key in shapesById){
+    for(var key in shapesById){
         var newFeature = {
             type: "Feature",
             geometry: {
@@ -82,9 +88,89 @@ module.exports = function(folder){
         shapes.features.push(newFeature);
     }
 
-    geojson = [];
-    geojson['stops'] = stops;
-    geojson['shapes'] = shapes;
-    return geojson;
+    /*
+     * Create HashMaps listing elements by an id.
+     */
+    var routesById = createById(data["routes.txt"], 'route_id');
+    var tripsByRouteId = createById(data["trips.txt"], 'route_id');
+    var stop_timesByTripId = createById(data["stop_times.txt"], 'trip_id');
+    var tripsById = createById(data["trips.txt"], 'trip_id');
+    var stop_timesById = createById(data["stop_times.txt"], 'stop_id');
+    var shapesById = createById(data["shapes.txt"], 'shape_id');
+    var stopsById = createById(data["stops.txt"], 'stop_id');
+
+    /*
+     * Creation of an object that contains routes with its trips and stops
+     */
+
+    for(var routeId in routesById) {
+
+        routesById[routeId].name = routesById[routeId].list[0].route_long_name;
+        var agency_id = routesById[routeId].list[0].agency_id;
+
+        if (tripsByRouteId[routeId]) {
+            routesById[routeId].trips = tripsByRouteId[routeId].list;
+
+            // Collect trips of the route
+            routesById[routeId].trips.forEach(function(trip){
+                if(stop_timesByTripId[trip.trip_id]){
+                    trip.stop_times = stop_timesByTripId[trip.trip_id].list;
+                    trip.stops = {
+                        geojson:{
+                            type: "FeatureCollection",
+                            features: []
+                        }
+                    };
+
+                    // Collect stop geometry and combine with stop time with using stop_id
+                    trip.stopsById = {};
+                    trip.stop_times.forEach(function(stop_time){
+                        if(stopsById[stop_time.stop_id]){
+                            var stop = trip.stopsById[stop_time.stop_id] = stopsById[stop_time.stop_id].list[0];
+                            stop.feature = {
+                                type: "Feature",
+                                geometry: {
+                                    type: "Point",
+                                    coordinates: [parseFloat(stop.stop_lon), parseFloat(stop.stop_lat)]
+                                }
+                            };
+                            trip.stops.geojson.features.push(stop.feature);
+                            stop_time.stop = stop;
+                        }
+                    });
+                    //for(var stopId in trip.stopsById){}
+                }
+
+                if(shapesById[trip.shape_id]){
+                    trip.shape = {}
+                    trip.shape['type'] = 'FeatureCollection';
+                    trip.shape['features'] = [];
+                    var newFeature = {
+                        type: "Feature",
+                        geometry: {
+                            type: "LineString",
+                            coordinates: []
+                        },
+                        //properties: shapesById[trip.shape_id].list[0]
+                        properties: agency_id
+                    };
+
+                    //Collect shapes with using shape_id for trips
+                    shapesById[trip.shape_id].list.forEach(function(shape){
+                        newFeature.geometry.coordinates.push([parseFloat(shape.shape_pt_lon), parseFloat(shape.shape_pt_lat)])
+                    });
+                    trip.shape.features.push(newFeature);
+                }
+            });
+
+        }
+    }
+
+    var processed_data = {};
+    processed_data.stops = stops;
+    processed_data.shapes = shapes;
+    processed_data.routes = routesById;
+    processed_data.trips = tripsById;
+    return [processed_data, stopsById, stop_timesById, shapesById];
 
 };

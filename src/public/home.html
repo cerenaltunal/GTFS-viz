@@ -1,0 +1,19 @@
+<div class="container" ng-controller="TripsController">
+
+    <div cg-busy="myPromise"></div>
+    <div class="text-center">
+
+        <leaflet legend="legend" geojson="shapes" center="mexico" markers="markers" layers="layers" event-broadcast="events" width="100%" height="80%"></leaflet>
+    </div>
+    <div class = "well">
+        <select ng-model="route" ng-options="route.name for (key, route) in routes track by key">
+            <option value="" disabled selected>Select your route</option>
+        </select>
+        <select ng-show="route" ng-model="trip">
+            <option value="" disabled selected>Select your trip</option>
+            <option ng-repeat="trip in route.trips track by $index" value="{{$index}}">{{trip.trip_desc}}</option>
+        </select>
+        <button class="btn btn-info" ng-disabled="!trip || !route" ng-click="showRoute(trip);">Show route</button>
+        <button class="btn btn-warning" ng-click="clear();">Clear route</button>
+    </div>
+</div><!-- /.container -->

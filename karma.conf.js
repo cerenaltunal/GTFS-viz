@@ -15,8 +15,15 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/public/**/*.js',
-      'test/**/*Spec.js'
+      'bower_components/angular/angular.js',
+      'bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
+      'bower_components/angular-busy/angular-busy.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'bower_components/ui-router/release/angular-ui-router.js',
+      'src/public/app.js',
+      'src/public/*.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'test/angular/*Spec.js'
     ],
 
 

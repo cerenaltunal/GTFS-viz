@@ -4,7 +4,7 @@
   "description": "Mexico City public transportation",
   "main": "app.js",
   "scripts": {
-    "test": "./node_modules/.bin/karma start karma.conf.js && ./node_modules/.bin/jasmine-node test/*Spec.node.js"
+    "test": "./node_modules/.bin/karma start karma.conf.js && ./node_modules/.bin/jasmine-node ./test/node"
   },
   "repository": {
     "type": "git",

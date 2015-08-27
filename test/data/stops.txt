@@ -1,0 +1,2 @@
+﻿stop_id,stop_code,stop_name,stop_desc,stop_lat,stop_lon,zone_id,stop_url,location_type,parent_station,wheelchair_boarding,stop_direction
+Balderas,,Balderas,Parent station metro,19.42726839,-99.14896131,,,1,,,

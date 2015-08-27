@@ -1,0 +1,13 @@
+<div class="container" ng-controller="StopsController">
+
+    <div class="text-center">
+
+        <leaflet geojson="shapes" center="mexico" markers="markers" layers="layers" event-broadcast="events" width="100%" height="80%"></leaflet>
+    </div>
+    <div class = "well">
+        <select ng-model="byStop" ng-options="stop.properties.stop_name for stop in stops.data.features track by stop.properties.stop_id">
+            <option value="" disabled selected>Select your stop</option>
+        </select>
+        <button ng-disabled="!byStop" class="btn btn-info" ng-click="getRouteByStop(byStop.properties.stop_id)">Show Routes</button>{{byStop.properties.stop_id}}
+    </div>
+</div><!-- /.container -->
