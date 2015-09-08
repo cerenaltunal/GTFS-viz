@@ -9,8 +9,13 @@ var app = angular.module('mapModule', ['leaflet-directive', 'cgBusy', 'ui.bootst
                 templateUrl:'home.html'
             })
             .state('stops', {
-                url:'/',
+                url:'/stops',
                 templateUrl:'stops.html'
             })
 
     });
+
+app.run(function($rootScope, $state){
+  $rootScope.events = {};
+  if($state.$current.name === '') $state.go('home');
+});
