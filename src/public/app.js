@@ -17,5 +17,4 @@ var app = angular.module('mapModule', ['leaflet-directive', 'cgBusy', 'ui.bootst
 
 app.run(function($rootScope, $state){
   $rootScope.events = {};
-  if($state.$current.name === '') $state.go('home');
 });
